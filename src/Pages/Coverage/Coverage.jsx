@@ -14,7 +14,7 @@ const Coverage = () => {
       />
       {covaregeData.map((data,index)=><Marker  className="h-[800px] w-full" key={index} position={[data.latitude,data.longitude]}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+            <strong>{data.city}</strong> <p>{data.covered_area.join(',')}</p>
         </Popup>
       </Marker>)}
     </MapContainer>

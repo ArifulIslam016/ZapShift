@@ -16,10 +16,10 @@ const ReviewCard = ({ reviewPromise }) => {
         autoplay={true}
       spaceBetween={50}  
       coverflowEffect={{
-        rotate: 35,
+        rotate: 30,
         stretch:'50%',
         depth: 200,
-        scale:1.25,
+        scale:0.75,
         modifier: 1,
         slideShadows: true,
       }}
@@ -29,7 +29,7 @@ const ReviewCard = ({ reviewPromise }) => {
     >
       {reviewData.map((review) => (
         <SwiperSlide>
-          <div className="bg-white shadow-md rounded-2xl p-8 w-full max-w-md">
+          <div className="bg-white shadow-md rounded-2xl p-8  w-full max-w-md">
             {/* Quote Icon */}
             <FaQuoteLeft className="text-3xl text-primary mb-4" />
 
