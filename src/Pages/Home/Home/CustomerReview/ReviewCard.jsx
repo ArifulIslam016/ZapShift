@@ -1,28 +1,31 @@
 import React, { use } from "react";
 import { FaQuoteLeft } from "react-icons/fa";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const ReviewCard = ({ reviewPromise }) => {
   const reviewData = use(reviewPromise);
 
   return (
-    <Swiper
+    <Swiper 
       effect={"coverflow"}
       grabCursor={true}
       centeredSlides={true}
       slidesPerView={3}
       loop={true}
+        autoplay={true}
+      spaceBetween={50}  
       coverflowEffect={{
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
+        rotate: 35,
+        stretch:'50%',
+        depth: 200,
+        scale:1.25,
         modifier: 1,
         slideShadows: true,
       }}
       pagination={true}
-      modules={[EffectCoverflow, Pagination]}
-      className="mySwiper"
+      modules={[EffectCoverflow, Pagination,Autoplay]}
+      className="mySwiper my-10 space-x-8"
     >
       {reviewData.map((review) => (
         <SwiperSlide>
