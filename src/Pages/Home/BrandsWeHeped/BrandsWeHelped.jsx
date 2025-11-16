@@ -8,14 +8,15 @@ import moonstarimg from '../../../assets/brands/moonstar.png'
 import redStadImg from '../../../assets/brands/randstad.png'
 import star from '../../../assets/brands/star.png'
 import startImg from '../../../assets/brands/start_people.png'
+import { Autoplay } from 'swiper/modules';
 const BrandsWeHelped = () => {
     return (
   <Swiper
-  wiper
+        modules={[Autoplay]}
         slidesPerView={3}
         spaceBetween={30}
         autoplay={true}
-        
+        loop={true}
         freeMode={true}
         pagination={{
           clickable: true,

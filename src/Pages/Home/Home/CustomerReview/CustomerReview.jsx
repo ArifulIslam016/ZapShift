@@ -1,6 +1,9 @@
 import React from "react";
 import customerTopImg from '../../../../assets/customer-top.png'
+import ReviewCard from "./ReviewCard";
+const reviewPromise= fetch('./data/reviews.json').then(res=>res.json())
 const CustomerReview = () => {
+    
   return (
     <div>
       <div className="max-w-4xl flex flex-col justify-center items-center text-center space-y-5">
@@ -14,6 +17,7 @@ const CustomerReview = () => {
           with ease!
         </p>
       </div>
+    <ReviewCard reviewPromise={reviewPromise}></ReviewCard>
     </div>
   );
 };
