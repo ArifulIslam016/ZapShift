@@ -25,7 +25,7 @@ const ReviewCard = ({ reviewPromise }) => {
       }}
       pagination={true}
       modules={[EffectCoverflow, Pagination,Autoplay]}
-      className="mySwiper my-10 space-x-8"
+      className="mySwiper"
     >
       {reviewData.map((review) => (
         <SwiperSlide>

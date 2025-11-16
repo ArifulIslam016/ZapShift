@@ -5,8 +5,8 @@ const reviewPromise= fetch('./data/reviews.json').then(res=>res.json())
 const CustomerReview = () => {
     
   return (
-    <div>
-      <div className="max-w-4xl flex flex-col justify-center items-center text-center space-y-5">
+    <div className="my-15">
+      <div className="max-w-4xl mx-auto flex flex-col justify-center items-center text-center space-y-5">
         <img src={customerTopImg} alt="" />
         <h1 className="text-5xl font-extrabold text-neutral ">
           What our customers are sayings
