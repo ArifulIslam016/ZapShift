@@ -13,5 +13,9 @@
    --color-neutral: #03373D;
   
 }
+.active{
+  background-color:#CAEB66;
+  border-radius: 16px;
+}
 body {
   font-family: "Urbanist", sans-serif;}

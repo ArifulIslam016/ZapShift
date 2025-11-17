@@ -4,14 +4,14 @@ import { Link, NavLink } from "react-router";
 import useAuthhooks from "../../../../../hooks/Authhooks";
 
 const Navbar = () => {
-  const { logOUt, user } = useAuthhooks();
+  const { logOut, user } = useAuthhooks();
   const links = (
     <>
       <li>
         <NavLink to={""}>test</NavLink>
       </li>
       <li>
-        <NavLink to={""}>test</NavLink>
+        <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
       </li>
       <li>
         <NavLink to={"/coverage"}>coverage</NavLink>
@@ -25,7 +25,7 @@ const Navbar = () => {
     </>
   );
   const handleLogout = () => {
-    logOUt().then().catch();
+    logOut().then().catch();
   };
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -70,7 +70,7 @@ const Navbar = () => {
             Login
           </Link>
         )}
-          <Link className="btn bg-primary text-title">Be a Rider</Link>
+          <Link to={'/rider'} className="btn bg-primary text-title">Be a Rider</Link>
       </div>
     </div>
   );

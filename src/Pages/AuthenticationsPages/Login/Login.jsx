@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuthhooks from "../../../hooks/Authhooks";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLoginGoogle from "../../../Components/Logo/SocialLogin/socialLoginGoogle";
 
 const Login = () => {
-  const {
+  const location=useLocation()
+    const {
     register,
     handleSubmit,
     formState: { errors },
@@ -16,7 +17,7 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((data) => {
         if (data) {
-          navigate("/");
+          navigate(location?.state||"/");
         }
       })
       .catch((err) => {
@@ -25,9 +26,7 @@ const Login = () => {
   };
   return (
     <div className="card bg-base-100 p-10 mx-auto w-full max-w-sm shrink-0 shadow-2xl">
-      <h1 className="text-3xl font-extrabold text-neutral">
-        Welcome Back
-      </h1>
+      <h1 className="text-3xl font-extrabold text-neutral">Welcome Back</h1>
 
       <form onSubmit={handleSubmit(handleLogin)}>
         <fieldset className="fieldset">
@@ -62,7 +61,12 @@ const Login = () => {
           </button>
         </fieldset>
       </form>
-      <p>New to Zapshipt? <Link className="text-pink-500 underline" to={'/register'}>Register</Link></p>
+      <p>
+        New to Zapshipt?{" "}
+        <Link state={location.state} className="text-pink-500 underline" to={"/register"}>
+          Register
+        </Link>
+      </p>
       <SocialLoginGoogle></SocialLoginGoogle>
     </div>
   );

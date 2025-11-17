@@ -1,30 +1,43 @@
-import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { Authcontext } from "../../../Context/Autncontext/Authcontext";
 import useAuthhooks from "../../../hooks/Authhooks";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLoginGoogle from "../../../Components/Logo/SocialLogin/socialLoginGoogle";
+import axios from "axios";
 
 const Register = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const { signInUser, CreateUser } = useAuthhooks();
+  const { UpdateUserProfile, CreateUser } = useAuthhooks();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const handleRegister = (data) => {
-    console.log(data.photo)
-    // CreateUser(data.email, data.password)
-    //   .then((data) => {
-        
-    //     if (data) {
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((eror) => {
-    //     console.log(eror);
-    //   });
+    const profileImg = data.photo[0];
+    CreateUser(data.email, data.password)
+      .then(() => {
+        const formData = new FormData();
+        formData.append("image", profileImg);
+        const imagebbHostApi = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_Image_host_key
+        }`;
+        axios
+          .post(imagebbHostApi, formData)
+          .then((imagedata) => {
+            UpdateUserProfile({
+              displayName: data.name,
+              photoURL: imagedata.data.data.url,
+            }).then(() => {
+              navigate(location.state || "/");
+            });
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((eror) => {
+        console.log(eror);
+      });
   };
   return (
     <div className="card bg-base-100 p-10 mx-auto w-full max-w-sm shrink-0 shadow-2xl">
@@ -33,7 +46,7 @@ const Register = () => {
       </h1>
       <form onSubmit={handleSubmit(handleRegister)}>
         <fieldset className="fieldset">
-            {/* Name Section */}
+          {/* Name Section */}
           <label className="label">Name</label>
           <input
             {...register("name", { required: true })}
@@ -97,8 +110,12 @@ const Register = () => {
       </form>
       <p>
         Already have an account?{" "}
-        <Link className="text-pink-500 underline" to={"/login"}>
-         Login
+        <Link
+          state={location.state}
+          className="text-pink-500 underline"
+          to={"/login"}
+        >
+          Login
         </Link>
       </p>
       <SocialLoginGoogle></SocialLoginGoogle>
