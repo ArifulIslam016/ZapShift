@@ -7,7 +7,7 @@ const AuthenticationLayout = () => {
         <div className='max-w-[1440px] mx-auto '>
             <div className=''><Logo></Logo></div>
             <div className='flex justify-center items-center'>
-                <div className='flex-1'>
+                <div className='flex-1  mx-auto'>
                     <Outlet></Outlet>
                 </div>
                 <div className='flex-1 flex justify-center items-center h-screen bg-[#FAFDF0] '>
