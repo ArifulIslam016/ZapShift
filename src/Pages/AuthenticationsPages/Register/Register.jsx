@@ -2,10 +2,11 @@ import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { Authcontext } from "../../../Context/Autncontext/Authcontext";
 import useAuthhooks from "../../../hooks/Authhooks";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import SocialLoginGoogle from "../../../Components/Logo/SocialLogin/socialLoginGoogle";
 
 const Register = () => {
-    const navigate=useNavigate()
+  const navigate = useNavigate();
   const { signInUser, CreateUser } = useAuthhooks();
   const {
     register,
@@ -13,21 +14,48 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const handleRegister = (data) => {
-    CreateUser(data.email, data.password)
-      .then((data) =>{
-        if(data){
-            navigate('/')
-        }
-      })
-      .catch((eror) => {
-        console.log(eror);
-      });
+    console.log(data.photo)
+    // CreateUser(data.email, data.password)
+    //   .then((data) => {
+        
+    //     if (data) {
+    //       navigate("/");
+    //     }
+    //   })
+    //   .catch((eror) => {
+    //     console.log(eror);
+    //   });
   };
   return (
-    <div>
-        <h1 className="text-3xl font-extrabold text-neutral">Register to login</h1>
+    <div className="card bg-base-100 p-10 mx-auto w-full max-w-sm shrink-0 shadow-2xl">
+      <h1 className="text-3xl font-extrabold text-neutral">
+        Register to login
+      </h1>
       <form onSubmit={handleSubmit(handleRegister)}>
         <fieldset className="fieldset">
+            {/* Name Section */}
+          <label className="label">Name</label>
+          <input
+            {...register("name", { required: true })}
+            type="text"
+            className="input"
+            placeholder="Name"
+          />
+          {errors?.email?.type === "required" && (
+            <p className="text-red-500">Name required</p>
+          )}
+          {/* Photo section */}
+          <label className="label">Photo</label>
+          <input
+            {...register("photo", { required: true })}
+            type="file"
+            className="file-input"
+            placeholder="Photo"
+          />
+          {errors?.email?.type === "required" && (
+            <p className="text-red-500">Photo required</p>
+          )}
+          {/* Email Section */}
           <label className="label">Email</label>
           <input
             {...register("email", { required: true })}
@@ -59,14 +87,21 @@ const Register = () => {
             <p className="text-red-500">Only letters are allowed.</p>
           )}
 
-          <div>
+          {/* <div>
             <a className="link link-hover">Forgot password?</a>
-          </div>
+          </div> */}
           <button className="btn  outline-0 focus:outline-0 focus:ring-0 border-0 bg-primary mt-4">
             Register
           </button>
         </fieldset>
       </form>
+      <p>
+        Already have an account?{" "}
+        <Link className="text-pink-500 underline" to={"/login"}>
+         Login
+        </Link>
+      </p>
+      <SocialLoginGoogle></SocialLoginGoogle>
     </div>
   );
 };

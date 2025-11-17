@@ -1,16 +1,32 @@
 import React from "react";
 import Logo from "../../../../../Components/Logo/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import useAuthhooks from "../../../../../hooks/Authhooks";
 
 const Navbar = () => {
-    const links=<>
-        <li><NavLink to={""}>test</NavLink></li>
-        <li><NavLink to={""}>test</NavLink></li>
-        <li><NavLink to={"/coverage"}>coverage</NavLink></li>
-        <li><NavLink to={"/register"}>Register</NavLink></li>
-        <li><NavLink to={"/login"}>Login</NavLink></li>
-        
+  const { logOUt, user } = useAuthhooks();
+  const links = (
+    <>
+      <li>
+        <NavLink to={""}>test</NavLink>
+      </li>
+      <li>
+        <NavLink to={""}>test</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/coverage"}>coverage</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/register"}>Register</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/login"}>Login</NavLink>
+      </li>
     </>
+  );
+  const handleLogout = () => {
+    logOUt().then().catch();
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -36,19 +52,25 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-           {links}
+            {links}
           </ul>
         </div>
         <Logo></Logo>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-            {links}
-           
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? (
+          <Link className="bg-primary btn " onClick={handleLogout}>
+            Logout
+          </Link>
+        ) : (
+          <Link className="bg-primary btn " to="/login">
+            Login
+          </Link>
+        )}
+          <Link className="btn bg-primary text-title">Be a Rider</Link>
       </div>
     </div>
   );

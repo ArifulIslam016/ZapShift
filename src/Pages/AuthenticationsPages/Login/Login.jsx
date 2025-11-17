@@ -1,24 +1,35 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import useAuthhooks from '../../../hooks/Authhooks';
-import { useNavigate } from 'react-router';
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAuthhooks from "../../../hooks/Authhooks";
+import { Link, useNavigate } from "react-router";
+import SocialLoginGoogle from "../../../Components/Logo/SocialLogin/socialLoginGoogle";
 
 const Login = () => {
-    const {register,handleSubmit,formState:{errors}}=useForm()
-    const navigate=useNavigate()
-    const {signInUser}=useAuthhooks()
-    const handleLogin=(data)=>{
-        signInUser(data.email,data.password).then(data=>{
-            if(data){
-                navigate('/')
-            }
-        }).catch(err=>{
-            console.log(err)
-        })
-    }
-    return (
-        <div>
-           <form onSubmit={handleSubmit(handleLogin)}>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const { signInUser } = useAuthhooks();
+  const handleLogin = (data) => {
+    signInUser(data.email, data.password)
+      .then((data) => {
+        if (data) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <div className="card bg-base-100 p-10 mx-auto w-full max-w-sm shrink-0 shadow-2xl">
+      <h1 className="text-3xl font-extrabold text-neutral">
+        Welcome Back
+      </h1>
+
+      <form onSubmit={handleSubmit(handleLogin)}>
         <fieldset className="fieldset">
           <label className="label">Email</label>
           <input
@@ -42,8 +53,6 @@ const Login = () => {
           {errors?.password?.type === "required" && (
             <p className="text-red-500">Password cannot be empty</p>
           )}
-          
-         
 
           <div>
             <a className="link link-hover">Forgot password?</a>
@@ -53,8 +62,10 @@ const Login = () => {
           </button>
         </fieldset>
       </form>
-        </div>
-    );
+      <p>New to Zapshipt? <Link className="text-pink-500 underline" to={'/register'}>Register</Link></p>
+      <SocialLoginGoogle></SocialLoginGoogle>
+    </div>
+  );
 };
 
 export default Login;
