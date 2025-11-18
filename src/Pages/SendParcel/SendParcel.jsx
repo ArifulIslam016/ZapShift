@@ -15,6 +15,7 @@ const SendParcel = () => {
   );
   const Regions = [...new Set(serviceCentersRegions)];
   const senderRegion = watch("senderRegion");
+  const reciverRegion=watch("reciverRegion")
   const handleDistictByReigion = (region) => {
     const districtsByRegion = serviceCenters.filter(
       (serviceCenter) => serviceCenter.region === region
@@ -60,6 +61,7 @@ const SendParcel = () => {
         </div>
         {/* parcell Name weight */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* parcel Name */}
           <fieldset className="fieldset">
             <label className="label text-black">Parcel Name</label>
             <input
@@ -132,7 +134,6 @@ const SendParcel = () => {
                   );
                 })}
               </select>
-              <span className="label">Optional</span>
             </fieldset>
 {/* Sender Districts */}
             <fieldset className="fieldset">
@@ -151,7 +152,6 @@ const SendParcel = () => {
                   );
                 })}
               </select>
-              <span className="label">Optional</span>
             </fieldset>
 
             {/* <label className="label text-black">District</label>
@@ -206,13 +206,42 @@ const SendParcel = () => {
                 {errors.reciverPhone.message}
               </p>
             )}
-            <label className="label text-black">Receiver District</label>
-            <input
-              type="text"
-              {...register("reciverDistrict")}
-              className="input w-full"
-              placeholder="Your District"
-            />
+            {/* Reciver Region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Reciver Region</legend>
+              <select
+                {...register("reciverRegion")}
+                defaultValue="Select a Region"
+                className="select"
+              >
+                <option disabled={true}>Select Reciver Region</option>
+                {Regions.map((Region, index) => {
+                  return (
+                    <option key={index+8} value={Region}>
+                      {Region}
+                    </option>
+                  );
+                })}
+              </select>
+            </fieldset>
+{/* reciver Districts */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Reciver District</legend>
+              <select
+                {...register("reciverDistrict")}
+                defaultValue="Select a Distict"
+                className="select"
+              >
+                <option disabled={true}>Select a Distrist</option>
+                {handleDistictByReigion(reciverRegion).map((Region, index) => {
+                  return (
+                    <option key={index} value={Region}>
+                      {Region}
+                    </option>
+                  );
+                })}
+              </select>
+            </fieldset>
             <label className="label text-black">Delivery Instruction</label>
             <textarea
               type="text"
