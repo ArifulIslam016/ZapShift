@@ -22,6 +22,10 @@ const Navbar = () => {
       <li>
         <NavLink to={"/login"}>Login</NavLink>
       </li>
+      {user?<>
+      
+      <li><NavLink to={"/dashboard/my-percels"}>My Parcels</NavLink></li>
+      </>:''}
     </>
   );
   const handleLogout = () => {
@@ -70,7 +74,9 @@ const Navbar = () => {
             Login
           </Link>
         )}
-          <Link to={'/rider'} className="btn bg-primary text-title">Be a Rider</Link>
+        <Link to={"/rider"} className="btn bg-primary text-title">
+          Be a Rider
+        </Link>
       </div>
     </div>
   );
