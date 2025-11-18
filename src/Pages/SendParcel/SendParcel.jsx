@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
@@ -7,15 +7,15 @@ const SendParcel = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm();
   const serviceCentersRegions = serviceCenters.map(
     (serviceCenter) => serviceCenter.region
   );
   const Regions = [...new Set(serviceCentersRegions)];
-  const senderRegion = watch("senderRegion");
-  const reciverRegion=watch("reciverRegion")
+  const senderRegion = useWatch({ control, name: "senderRegion" });
+  const reciverRegion = useWatch({ control, name: "reciverRegion" });
   const handleDistictByReigion = (region) => {
     const districtsByRegion = serviceCenters.filter(
       (serviceCenter) => serviceCenter.region === region
@@ -61,7 +61,7 @@ const SendParcel = () => {
         </div>
         {/* parcell Name weight */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* parcel Name */}
+          {/* parcel Name */}
           <fieldset className="fieldset">
             <label className="label text-black">Parcel Name</label>
             <input
@@ -121,8 +121,8 @@ const SendParcel = () => {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Your Region</legend>
               <select
-                {...register("senderRegion")}
-                defaultValue="Pick a Region"
+                {...register("senderRegion", { required: true })}
+                defaultValue="Select a Region"
                 className="select"
               >
                 <option disabled={true}>Select a Region</option>
@@ -134,16 +134,19 @@ const SendParcel = () => {
                   );
                 })}
               </select>
+              {errors.senderRegion?.type === "required" && (
+                <p className="text-red-500">Please Seclect a Region</p>
+              )}
             </fieldset>
-{/* Sender Districts */}
+            {/* Sender Districts */}
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Your District</legend>
               <select
-                {...register("senderDistrict")}
-                defaultValue="Select a Distict"
+                {...register("senderDistrict", { required: true })}
+                defaultValue="Select a District"
                 className="select"
               >
-                <option disabled={true}>Select a Region</option>
+                <option disabled={true}>Select a District </option>
                 {handleDistictByReigion(senderRegion).map((Region, index) => {
                   return (
                     <option key={index} value={Region}>
@@ -152,6 +155,9 @@ const SendParcel = () => {
                   );
                 })}
               </select>
+              {errors.senderDistrict?.type === "required" && (
+                <p className="text-red-500">Please Seclect a District</p>
+              )}
             </fieldset>
 
             {/* <label className="label text-black">District</label>
@@ -210,37 +216,45 @@ const SendParcel = () => {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Reciver Region</legend>
               <select
-                {...register("reciverRegion")}
-                defaultValue="Select a Region"
+                {...register("reciverRegion", { required: true })}
+                defaultValue="Select Reciver Region"
                 className="select"
               >
                 <option disabled={true}>Select Reciver Region</option>
                 {Regions.map((Region, index) => {
                   return (
-                    <option key={index+8} value={Region}>
+                    <option key={index + 8} value={Region}>
                       {Region}
                     </option>
                   );
                 })}
               </select>
             </fieldset>
-{/* reciver Districts */}
+            {errors.reciverRegion?.type === "required" && (
+              <p className="text-red-500">Please Seclect a Region</p>
+            )}
+            {/* reciver Districts */}
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Reciver District</legend>
+              <legend className="fieldset-legend">Select a Distict</legend>
               <select
-                {...register("reciverDistrict")}
-                defaultValue="Select a Distict"
+                {...register("reciverDistrict", { required: true })}
+                defaultValue='Select A District'
                 className="select"
               >
-                <option disabled={true}>Select a Distrist</option>
-                {handleDistictByReigion(reciverRegion).map((Region, index) => {
-                  return (
-                    <option key={index} value={Region}>
-                      {Region}
-                    </option>
-                  );
-                })}
+                <option disabled={true}>Select A District </option>
+                {handleDistictByReigion(reciverRegion).map(
+                  (district, index) => {
+                    return (
+                      <option key={index} value={district}>
+                        {district}
+                      </option>
+                    );
+                  }
+                )}
               </select>
+              {errors.reciverDistrict?.type === "required" && (
+                <p className="text-red-500">Please Seclect a District</p>
+              )}
             </fieldset>
             <label className="label text-black">Delivery Instruction</label>
             <textarea
