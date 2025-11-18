@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
   const serviceCenters = useLoaderData();
@@ -25,7 +26,50 @@ const SendParcel = () => {
   };
 
   const handleSendParcel = (data) => {
-    console.log(data);
+    let cost = 0;
+    const isDocumnet = data.documnetType === "Document";
+    const isSameDistrict = data.reciverDistrict === data.senderDistrict;
+    const weight = parseFloat(data.parcelWeight);
+    if (isSameDistrict) {
+      if (isDocumnet) {
+        const DocumnetCost = 60;
+        cost = DocumnetCost;
+      } else {
+        const nonDocConst = weight <= 3 ? 110 : 110 + (weight - 3) * 40;
+        cost = nonDocConst;
+      }
+    } else {
+      if (isDocumnet) {
+        const docCost = 80;
+        cost = docCost;
+      } else {
+        const nonDocumnetCost =
+          weight <= 3 ? 150 : 150 + (weight - 3) * 40 + 40;
+        cost = nonDocumnetCost;
+      }
+    }
+
+    Swal.fire({
+      title: "Agree With Price?",
+      text: `Total:${cost}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "I agree",
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+        
+        // Swal.fire({
+        //   title: "Parcell Confom",
+        //   text: "Payment Pending.",
+        //   icon: "success",
+        // });
+      }
+    });
+    console.log(cost);
   };
   return (
     <div className="bg-white rounded-2xl py-20 px-26 mt-8 mx-5">
@@ -238,7 +282,7 @@ const SendParcel = () => {
               <legend className="fieldset-legend">Select a Distict</legend>
               <select
                 {...register("reciverDistrict", { required: true })}
-                defaultValue='Select A District'
+                defaultValue="Select A District"
                 className="select"
               >
                 <option disabled={true}>Select A District </option>
@@ -276,3 +320,56 @@ const SendParcel = () => {
 };
 
 export default SendParcel;
+/***{documnetType: 'Document', parcelName: '', parcelWeight: '', SenderName: '', SenderAddress: 'Garudha,Fulkocha', …}
+SenderAddress
+: 
+"Garudha,Fulkocha"
+SenderName
+: 
+""
+SenderPhone
+: 
+"01610854092"
+documnetType
+: 
+"Document"
+instructionsToDelivery
+: 
+""
+instructionsToPickUP
+: 
+""
+parcelName
+: 
+""
+parcelWeight
+: 
+""
+reciverAddress
+: 
+"Garudha,Fulkocha"
+reciverDistrict
+: 
+"Select A District"
+reciverName
+: 
+"Ariful Islam"
+reciverPhone
+: 
+"01610854092"
+reciverRegion
+: 
+"Select Reciver Region"
+senderDistrict
+: 
+"Select a District"
+senderRegion
+: 
+"Select a Region"
+[[Prototype]]
+: 
+Object */
+
+//  if(weight<3){
+//         cost=nonDocCost
+// }         const nonDocCost=110;
