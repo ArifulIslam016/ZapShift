@@ -2,9 +2,13 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useSecureInstance from "../../hooks/SecureInstance";
+import useAuthhooks from "../../hooks/Authhooks";
 
 const SendParcel = () => {
   const serviceCenters = useLoaderData();
+  const Insatance = useSecureInstance();
+  const { user } = useAuthhooks();
   const {
     register,
     handleSubmit,
@@ -48,7 +52,7 @@ const SendParcel = () => {
         cost = nonDocumnetCost;
       }
     }
-
+    data.bearingCost = cost;
     Swal.fire({
       title: "Agree With Price?",
       text: `Total:${cost}`,
@@ -59,9 +63,12 @@ const SendParcel = () => {
       confirmButtonText: "I agree",
     }).then((result) => {
       if (result.isConfirmed) {
+        Insatance.post("/parcels", data)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch();
 
-
-        
         // Swal.fire({
         //   title: "Parcell Confom",
         //   text: "Payment Pending.",
@@ -129,20 +136,25 @@ const SendParcel = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <fieldset className="fieldset">
             <h1 className="text-2xl font-semibold">Sender Details</h1>
+            {/* Sender Name Secion */}
             <label className="label text-black">Sender Name</label>
             <input
+              defaultValue={user?.displayName}
               type="text"
               {...register("SenderName")}
               className="input w-full"
               placeholder="Sender Name"
             />
-            <label className="label text-black">Address</label>
+            {/* Sender Email Addess */}
+            <label className="label text-black">Eamil Address</label>
             <input
-              type="text"
-              {...register("SenderAddress")}
+              defaultValue={user.email}
+              type="email"
+              {...register("SenderEamil")}
               className="input w-full"
-              placeholder="Sender Address"
+              placeholder="Your Email Address"
             />
+
             <label className="label text-black">Phone No:</label>
             <input
               type="tel"
@@ -203,6 +215,14 @@ const SendParcel = () => {
                 <p className="text-red-500">Please Seclect a District</p>
               )}
             </fieldset>
+            {/* Sender Addess */}
+            <label className="label text-black">Address</label>
+            <input
+              type="text"
+              {...register("SenderAddress")}
+              className="input w-full"
+              placeholder="Sender Address"
+            />
 
             {/* <label className="label text-black">District</label>
             <input
@@ -231,13 +251,16 @@ const SendParcel = () => {
               className="input w-full"
               placeholder="Sender Name"
             />
-            <label className="label text-black">Receiver Address</label>
+            {/* Reciver Email address Secions */}
+            <label className="label text-black">Receiver Email Address</label>
             <input
-              type="text"
-              {...register("reciverAddress")}
+              type="eamil"
+              {...register("reciverEamil")}
               className="input w-full"
-              placeholder="Sender Address"
+              placeholder="Email Address"
             />
+            {/* Reciver Addesss Secions */}
+
             <label className="label text-black">Receiver Contact No</label>
             <input
               type="tel"
@@ -300,6 +323,13 @@ const SendParcel = () => {
                 <p className="text-red-500">Please Seclect a District</p>
               )}
             </fieldset>
+            <label className="label text-black">Receiver Address</label>
+            <input
+              type="text"
+              {...register("reciverAddress")}
+              className="input w-full"
+              placeholder="Reciver Address"
+            />
             <label className="label text-black">Delivery Instruction</label>
             <textarea
               type="text"
