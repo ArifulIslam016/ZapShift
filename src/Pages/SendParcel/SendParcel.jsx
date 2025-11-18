@@ -1,12 +1,28 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const SendParcel = () => {
+  const serviceCenters = useLoaderData();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+  const serviceCentersRegions = serviceCenters.map(
+    (serviceCenter) => serviceCenter.region
+  );
+  const Regions = [...new Set(serviceCentersRegions)];
+  const senderRegion = watch("senderRegion");
+  const handleDistictByReigion = (region) => {
+    const districtsByRegion = serviceCenters.filter(
+      (serviceCenter) => serviceCenter.region === region
+    );
+    const disticts = districtsByRegion.map((d) => d.district);
+    return disticts;
+  };
+
   const handleSendParcel = (data) => {
     console.log(data);
   };
@@ -63,7 +79,7 @@ const SendParcel = () => {
             />
           </fieldset>
         </div>
-          {/* sender reciver flex */}
+        {/* sender reciver stucture grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <fieldset className="fieldset">
             <h1 className="text-2xl font-semibold">Sender Details</h1>
@@ -87,7 +103,7 @@ const SendParcel = () => {
               {...register("SenderPhone", {
                 required: "Phone number is required",
                 pattern: {
-                  value: /^01[3-9][0-9]{8}$/, 
+                  value: /^01[3-9][0-9]{8}$/,
                   message: "Enter a valid Bangladesh phone number",
                 },
               })}
@@ -99,13 +115,54 @@ const SendParcel = () => {
                 {errors.SenderPhone.message}
               </p>
             )}
-            <label className="label text-black">District</label>
+            {/* Sender Region */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Your Region</legend>
+              <select
+                {...register("senderRegion")}
+                defaultValue="Pick a Region"
+                className="select"
+              >
+                <option disabled={true}>Select a Region</option>
+                {Regions.map((Region, index) => {
+                  return (
+                    <option key={index} value={Region}>
+                      {Region}
+                    </option>
+                  );
+                })}
+              </select>
+              <span className="label">Optional</span>
+            </fieldset>
+{/* Sender Districts */}
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Your District</legend>
+              <select
+                {...register("senderDistrict")}
+                defaultValue="Select a Distict"
+                className="select"
+              >
+                <option disabled={true}>Select a Region</option>
+                {handleDistictByReigion(senderRegion).map((Region, index) => {
+                  return (
+                    <option key={index} value={Region}>
+                      {Region}
+                    </option>
+                  );
+                })}
+              </select>
+              <span className="label">Optional</span>
+            </fieldset>
+
+            {/* <label className="label text-black">District</label>
             <input
               type="text"
               {...register("SenderDistrict")}
               className="input w-full"
               placeholder="Your District"
-            />
+            /> */}
+
+            {/* Sender Pickup instructions */}
             <label className="label text-black">Picup Instructions</label>
             <textarea
               type="text"
@@ -115,7 +172,7 @@ const SendParcel = () => {
             />
           </fieldset>
           {/* Reciver Sections */}
-            <fieldset className="fieldset">
+          <fieldset className="fieldset">
             <h1 className="text-2xl font-semibold">Reciver Details</h1>
             <label className="label text-black">Receiver Name</label>
             <input
@@ -137,7 +194,7 @@ const SendParcel = () => {
               {...register("reciverPhone", {
                 required: "Phone number is required",
                 pattern: {
-                  value: /^01[3-9][0-9]{8}$/, 
+                  value: /^01[3-9][0-9]{8}$/,
                   message: "Enter a valid Bangladesh phone number",
                 },
               })}
@@ -164,7 +221,6 @@ const SendParcel = () => {
               placeholder="Delivery Instructions"
             />
           </fieldset>
-
         </div>
         <input
           type="submit"

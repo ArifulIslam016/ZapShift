@@ -27,6 +27,7 @@ export const router = createBrowserRouter([
             <SendParcel></SendParcel>
           </PrivateProvider>
         ),
+        loader: () => fetch("./data/coverage.json"),
       },
       {
         path: "/rider",
