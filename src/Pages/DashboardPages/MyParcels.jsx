@@ -10,7 +10,7 @@ const MyParcels = () => {
      return Instance.get('/parcels').then(res=>res.data)
     }
   })
-   console.log(data)
+//    console.log(data)
     return (
         <div>
             <h1>Its My parcel sectionn tota {data?.length}  percel found</h1>
