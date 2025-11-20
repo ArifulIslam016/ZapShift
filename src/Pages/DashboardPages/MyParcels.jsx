@@ -2,19 +2,54 @@ import React from "react";
 import useSecureInstance from "../../hooks/SecureInstance";
 import { useQuery } from "@tanstack/react-query";
 import useAuthhooks from "../../hooks/Authhooks";
+import { MdOutlineEditNote } from "react-icons/md";
+import { FaMagnifyingGlass, FaRegTrashCan } from "react-icons/fa6";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const MyParcels = () => {
-  const {user}=useAuthhooks()
+  const { user } = useAuthhooks();
   const Instance = useSecureInstance();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading,refetch } = useQuery({
     queryKey: ["percels"],
-    queryFn: async() => {
-      return await Instance.get(`/parcels/?email=${user.email}`).then((res) => res.data);
+    queryFn: async () => {
+      return await Instance.get(`/parcels/?email=${user.email}`).then(
+        (res) => res.data
+      );
     },
   });
   //    console.log(data)
   if (isLoading) {
     return <h1> Loading.........</h1>;
+  }
+  const handleDelete=(id)=>{
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    Instance.delete(`/parcels/${id}`).then(res=> 
+     {
+     
+       if(res.data.deletedCount){
+        refetch()
+           Swal.fire({
+      title: "Deleted!",
+      text: "Your pickup request has been deleted.",
+      icon: "success"
+    });
+      }
+     }
+    )
+
+  }
+});
+    
   }
   return (
     <div>
@@ -37,14 +72,27 @@ const MyParcels = () => {
             </thead>
             <tbody>
               {data.map((percel, index) => {
-               return <tr>
-                  <th>{index}</th>
-                  <td>{percel?.parcelName}</td>
-                  <td>{percel?.reciverName}</td>
-                  <td>{percel?.bearingCost}</td>
-                  <td>paid/unpaind</td>
-                  <td>Actions....</td>
-                </tr>;
+                return (
+                  <tr key={index}>
+                    <th>{index+1}</th>
+                    <td>{percel?.parcelName}</td>
+                    <td>{percel?.reciverName}</td>
+                    <td>{percel?.bearingCost}</td>
+                    <td>{percel?.paymentStatus==='paid'?<span className="text-white bg-green-600 rounded-2xl">Paid</span>:<Link to={`/dashboard/payment/${percel._id}`} className="btn btn-primary rounded-sm text-green-800">Pay</Link>}</td>
+                    <td className="space-x-2">
+                      <button className="btn">
+                        <MdOutlineEditNote />
+                      </button>
+
+                      <button onClick={()=>handleDelete(percel._id)} className="btn">
+                        <FaRegTrashCan />
+                      </button>
+                      <button  className="btn">
+                        <FaMagnifyingGlass />
+                      </button>
+                    </td>
+                  </tr>
+                );
               })}
             </tbody>
           </table>
