@@ -69,11 +69,11 @@ const SendParcel = () => {
           })
           .catch();
 
-        // Swal.fire({
-        //   title: "Parcell Confom",
-        //   text: "Payment Pending.",
-        //   icon: "success",
-        // });
+        Swal.fire({
+          title: "Parcell Confom",
+          text: "Payment Pending.",
+          icon: "success",
+        });
       }
     });
     console.log(cost);
