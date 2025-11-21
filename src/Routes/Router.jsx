@@ -11,6 +11,8 @@ import SendParcel from "../Pages/SendParcel/SendParcel";
 import DashboardLayot from "../Layouts/DashboardLayout/DashboardLayot";
 import MyParcels from "../Pages/DashboardPages/MyParcels";
 import Payment from "../Pages/DashboardPages/payments/Payment";
+import Cancel from "../Pages/DashboardPages/payments/Cancel";
+import Success from "../Pages/DashboardPages/payments/Success";
 
 export const router = createBrowserRouter([
   {
@@ -72,9 +74,11 @@ export const router = createBrowserRouter([
           Component: Payment
         
         },{
-          path:'payment-cancel'
+          path:'payment-cancel',
+          Component: Cancel
         },{
-          path:"payment-success"
+          path:"payment-success",
+          Component:Success
         }
     ]
   },
