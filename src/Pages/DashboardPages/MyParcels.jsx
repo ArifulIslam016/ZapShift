@@ -51,6 +51,16 @@ const MyParcels = () => {
 });
     
   }
+  const handlePayment=async(percel)=>{
+    const paymentInfo={
+      percelName: percel?.parcelName,
+    id: percel?._id,
+    email: percel?.SenderEamil,
+    cost: percel?.bearingCost,
+    }
+  const result=await  Instance.post(`create-checkout-session`,paymentInfo)
+ window.location.assign(result.data.url)
+  }
   return (
     <div>
       <h1 className="text-neutral text-3xl">
@@ -78,7 +88,7 @@ const MyParcels = () => {
                     <td>{percel?.parcelName}</td>
                     <td>{percel?.reciverName}</td>
                     <td>{percel?.bearingCost}</td>
-                    <td>{percel?.paymentStatus==='paid'?<span className="text-white bg-green-600 rounded-2xl">Paid</span>:<Link to={`/dashboard/payment/${percel._id}`} className="btn btn-primary rounded-sm text-green-800">Pay</Link>}</td>
+                    <td>{percel?.paymentStatus==='paid'?<span className="text-white bg-green-600 rounded-2xl">Paid</span>:<button onClick={()=>handlePayment(percel)} className="btn btn-primary rounded-sm text-green-800">Pay</button>}</td>
                     <td className="space-x-2">
                       <button className="btn">
                         <MdOutlineEditNote />
