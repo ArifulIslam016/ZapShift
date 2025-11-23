@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useSecureInstance from "../../hooks/SecureInstance";
 import useAuthhooks from "../../hooks/Authhooks";
 
 const SendParcel = () => {
+  const navigate = useNavigate();
   const serviceCenters = useLoaderData();
   const Insatance = useSecureInstance();
   const { user } = useAuthhooks();
@@ -65,15 +66,18 @@ const SendParcel = () => {
       if (result.isConfirmed) {
         Insatance.post("/parcels", data)
           .then((res) => {
-            console.log(res);
+            if (res.data.insertedId) {
+              navigate("/dashboard/my-percels");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your parcel saved please pay now",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
           })
           .catch();
-
-        Swal.fire({
-          title: "Parcell Confom",
-          text: "Payment Pending.",
-          icon: "success",
-        });
       }
     });
     console.log(cost);
