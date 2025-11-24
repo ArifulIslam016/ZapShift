@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { use } from 'react';
 import useSecureInstance from '../../../hooks/SecureInstance';
 import useAuthhooks from '../../../hooks/Authhooks';
 import { Link } from 'react-router';
@@ -10,7 +9,7 @@ const MyPayment = () => {
     const{data,isLoading}=useQuery({
         queryKey:['payment',user?.email],
         queryFn:async()=>{
-            const result=await Instance.get(`/paidsinfo?/${user.email}`)
+            const result=await Instance.get(`/paidsinfo?email=${user.email}`)
             return result.data
         }
     })
