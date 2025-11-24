@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaBoxOpen } from 'react-icons/fa';
+import { MdPayment } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
 
 
@@ -41,6 +42,13 @@ const DashboardLayot = () => {
             <FaBoxOpen />
 
           <span className='is-drawer-close:hidden'>  My Percels</span>
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to={'/dashboard/my-payments'}>
+            <MdPayment />
+
+          <span className='is-drawer-close:hidden'>  My Payments</span>
             </NavLink>
         </li>
         {/* List item */}
