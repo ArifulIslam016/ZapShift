@@ -4,7 +4,7 @@ import useAuthhooks from '../../../hooks/Authhooks';
 import { Link } from 'react-router';
 
 const MyPayment = () => {
-    const {user}=useAuthhooks()
+    const {user,}=useAuthhooks()
     const Instance=useSecureInstance()
     const{data,isLoading}=useQuery({
         queryKey:['payment',user?.email],

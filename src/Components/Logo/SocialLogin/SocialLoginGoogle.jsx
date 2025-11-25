@@ -1,25 +1,65 @@
 import React from "react";
 import useAuthhooks from "../../../hooks/Authhooks";
 import { useLocation, useNavigate } from "react-router";
+import useSecureInstance from "../../../hooks/SecureInstance";
+import Success from "../../../Pages/DashboardPages/payments/Success";
 
 const SocialLoginGoogle = () => {
-    const location=useLocation()
+  const Instance = useSecureInstance();
+
+  const location = useLocation();
   const { googleSocialLogin } = useAuthhooks();
-  const navigate=useNavigate()
-  const handleSocialGoogle=()=>{
-    googleSocialLogin().then(data=>{
-        console.log(data)
-        if(data){
-            navigate(location?.state||'/')
+
+  const navigate = useNavigate();
+  const handleSocialGoogle = () => {
+    googleSocialLogin()
+      .then(async (data) => {
+        // if (!data) {
+        //   return "";
+        // }
+        const userInfo = {
+          displayName: data?.user?.displayName,
+          photoURL: data?.user?.photoURL,
+          email: data?.user?.email,
+        };
+        try {
+          const res = await Instance.post("/users", userInfo);
+          // console.log("Succsess Block", res);
+          if (res?.data?.insertedId) {
+            navigate(location.state || "/");
+          }
+        }catch (err) {
+          navigate('/')
+          // console.log(
+          //   "Error Block",
+          //   console.log(err)
+          // );
         }
-    }).catch(err=>
-        console.log(err)
-    )
-  }
+
+        // Instance.post('/users',userInfo).then((res)=>{
+        //   console.log("Success Block",res.data)
+        // }).catch(err=>{
+        //   console.log("Erron Block",err)
+        // })
+        // Instance
+        // console.log(userInfo)
+        //  Instance.post("/users",userInfo).then((result)=>{
+        //   console.log("is Stored",result)
+        //  }
+
+        //  ).catch(err=>{console.log(err)}
+      })
+
+      .catch(() => {});
+
+  };
   return (
     <div className="text-center">
-        <p>or</p>
-      <button onClick={handleSocialGoogle} className="btn bg-white text-black border-[#e5e5e5]">
+      <p>or</p>
+      <button
+        onClick={handleSocialGoogle}
+        className="btn bg-white text-black border-[#e5e5e5]"
+      >
         <svg
           aria-label="Google logo"
           width="16"

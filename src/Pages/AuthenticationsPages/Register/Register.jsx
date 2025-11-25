@@ -4,10 +4,12 @@ import useAuthhooks from "../../../hooks/Authhooks";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLoginGoogle from "../../../Components/Logo/SocialLogin/socialLoginGoogle";
 import axios from "axios";
+import useSecureInstance from "../../../hooks/SecureInstance";
 
 const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const Instance = useSecureInstance();
   const { UpdateUserProfile, CreateUser } = useAuthhooks();
   const {
     register,
@@ -26,6 +28,16 @@ const Register = () => {
         axios
           .post(imagebbHostApi, formData)
           .then((imagedata) => {
+            Instance.post("/users", {
+              displayName: data.name,
+              photoURL: imagedata.data.data.url,
+              email: data.email,
+            }).then((res) => {
+              console.log(res);
+              if (res.data) {
+                console.log("User Insfo saved", res.data);
+              }
+            });
             UpdateUserProfile({
               displayName: data.name,
               photoURL: imagedata.data.data.url,
