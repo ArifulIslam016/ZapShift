@@ -2,16 +2,20 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import useAuthhooks from "../../hooks/Authhooks";
 import { useLoaderData } from "react-router";
-import riderImg from '../../assets/agent-pending.png'
+import riderImg from "../../assets/agent-pending.png";
+import useSecureInstance from "../../hooks/SecureInstance";
+import Swal from "sweetalert2";
 
 const BeARider = () => {
   const serviceCenters = useLoaderData();
   const { user } = useAuthhooks();
+  const Instance = useSecureInstance();
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    reset
   } = useForm();
   const serviceCentersRegions = serviceCenters.map(
     (serviceCenter) => serviceCenter.region
@@ -45,7 +49,16 @@ const BeARider = () => {
       region,
       district,
     };
-    console.log(riderInfo);
+    Instance.post("/riders", riderInfo).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Applied",
+          text: "We wil rechout you!",
+          icon: "success",
+        });
+        reset()
+      }
+    });
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
@@ -56,7 +69,7 @@ const BeARider = () => {
         <form onSubmit={handleSubmit(handleBeARider)}>
           <fieldset className="fieldset w-full">
             {/* Name Section */}
-            <label className="label">Name</label>
+            <label className="label font-bold">Name</label>
             <input
               {...register("name", { required: true })}
               type="text"
@@ -161,7 +174,7 @@ const BeARider = () => {
         </form>
       </div>
       <div className="flex justify-center items-center">
-        <img  src={riderImg} alt="" />
+        <img src={riderImg} alt="" />
       </div>
     </div>
   );
