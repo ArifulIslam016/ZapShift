@@ -42,6 +42,7 @@ export const router = createBrowserRouter([
             <BeARider></BeARider>
           </PrivateProvider>
         ),
+        loader: () => fetch("./data/coverage.json"),
       },
     ],
   },
@@ -66,24 +67,27 @@ export const router = createBrowserRouter([
         <DashboardLayot></DashboardLayot>
       </PrivateProvider>
     ),
-    children:[
-        {
-            path:'my-percels',
-            Component:MyParcels,
-        },{
-          path:'my-payments',
-          Component: MyPayment
-        },{
-          path:'payment/:id',
-          Component: Payment
-        
-        },{
-          path:'payment-cancel',
-          Component: Cancel
-        },{
-          path:"payment-success",
-          Component:Success
-        }
-    ]
+    children: [
+      {
+        path: "my-percels",
+        Component: MyParcels,
+      },
+      {
+        path: "my-payments",
+        Component: MyPayment,
+      },
+      {
+        path: "payment/:id",
+        Component: Payment,
+      },
+      {
+        path: "payment-cancel",
+        Component: Cancel,
+      },
+      {
+        path: "payment-success",
+        Component: Success,
+      },
+    ],
   },
 ]);
