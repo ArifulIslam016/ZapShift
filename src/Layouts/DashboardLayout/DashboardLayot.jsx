@@ -1,6 +1,6 @@
 import React from "react";
 import { BiKey } from "react-icons/bi";
-import { FaBoxOpen } from "react-icons/fa";
+import { FaBoxOpen, FaUsers } from "react-icons/fa";
 import { MdPayment } from "react-icons/md";
 import { RiEBike2Fill } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router";
@@ -94,6 +94,14 @@ const DashboardLayot = () => {
                 <span className="is-drawer-close:hidden">Approve Rider</span>
               </NavLink>
             </li>
+            <li>
+              <NavLink to={"/dashboard/user-manage"}>
+                <FaUsers />
+
+                <span className="is-drawer-close:hidden">Users Management</span>
+              </NavLink>
+            </li>
+
             {/* List item */}
             <li>
               <button
