@@ -8,7 +8,7 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={""}>test</NavLink>
+        <NavLink to={"/rider"}>Be a Rider</NavLink>
       </li>
       <li>
         <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
