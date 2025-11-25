@@ -14,6 +14,7 @@ import Payment from "../Pages/DashboardPages/payments/Payment";
 import Cancel from "../Pages/DashboardPages/payments/Cancel";
 import Success from "../Pages/DashboardPages/payments/Success";
 import MyPayment from "../Pages/DashboardPages/MyPaymnet/MyPayment";
+import Riders from "../Pages/DashboardPages/Riders/Riders";
 
 export const router = createBrowserRouter([
   {
@@ -87,7 +88,10 @@ export const router = createBrowserRouter([
       {
         path: "payment-success",
         Component: Success,
-      },
+      },{
+        path:'approve-rider',
+        Component:Riders
+      }
     ],
   },
 ]);
