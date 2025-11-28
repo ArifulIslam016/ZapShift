@@ -21,7 +21,7 @@ const handleAddAdmin=(user)=>{
         Swal.fire({
             title: "Deleted!",
             text: `${user.displayName} now an admin`,
-            icon: "success"
+            // icon: "success"
           });
     }
   })
