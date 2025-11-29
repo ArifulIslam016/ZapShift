@@ -7,8 +7,7 @@ import { Link, NavLink, Outlet } from "react-router";
 import useUserRoleHook from "../../hooks/UserRoleHook";
 
 const DashboardLayot = () => {
-  const userRole=useUserRoleHook()
-  console.log(userRole)
+  const userRole = useUserRoleHook();
   return (
     <div className="drawer lg:drawer-open max-w-[1440px] mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -90,20 +89,28 @@ const DashboardLayot = () => {
                 <span className="is-drawer-close:hidden"> My Payments</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink to={"/dashboard/approve-rider"}>
-                <RiEBike2Fill />
+            {userRole.role === "admin" && (
+              <>
+                <li>
+                  <NavLink to={"/dashboard/approve-rider"}>
+                    <RiEBike2Fill />
 
-                <span className="is-drawer-close:hidden">Approve Rider</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/dashboard/user-manage"}>
-                <FaUsers />
+                    <span className="is-drawer-close:hidden">
+                      Approve Rider
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/dashboard/user-manage"}>
+                    <FaUsers />
 
-                <span className="is-drawer-close:hidden">Users Management</span>
-              </NavLink>
-            </li>
+                    <span className="is-drawer-close:hidden">
+                      Users Management
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>
