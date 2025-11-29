@@ -4,8 +4,11 @@ import { FaBoxOpen, FaUsers } from "react-icons/fa";
 import { MdPayment } from "react-icons/md";
 import { RiEBike2Fill } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router";
+import useUserRoleHook from "../../hooks/UserRoleHook";
 
 const DashboardLayot = () => {
+  const userRole=useUserRoleHook()
+  console.log(userRole)
   return (
     <div className="drawer lg:drawer-open max-w-[1440px] mx-auto">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
