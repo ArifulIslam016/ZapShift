@@ -35,7 +35,7 @@ const Register = () => {
             }).then((res) => {
               console.log(res);
               if (res.data) {
-                console.log("User Insfo saved", res.data);
+                // console.log("User Insfo saved", res.data);
               }
             });
             UpdateUserProfile({

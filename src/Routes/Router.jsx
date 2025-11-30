@@ -92,14 +92,16 @@ export const router = createBrowserRouter([
         Component: Success,
       },{
         path:'approve-rider',
-        element: <AdminRoute>
-          <Riders></Riders>
-        </AdminRoute>
+        Component: Riders
+        // element: <AdminRoute>
+        //   <Riders></Riders>
+        // </AdminRoute>
       },{
         path:'user-manage',
-        element: <AdminRoute>
-          <UserManagemnet></UserManagemnet>
-        </AdminRoute>        
+        Component:UserManagemnet
+        // element: <AdminRoute>
+        //   <UserManagemnet></UserManagemnet>
+        // </AdminRoute>        
       }
     ],
   },

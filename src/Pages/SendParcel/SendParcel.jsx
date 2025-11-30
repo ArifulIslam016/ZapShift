@@ -80,7 +80,7 @@ const SendParcel = () => {
           .catch();
       }
     });
-    console.log(cost);
+    // console.log(cost);
   };
   return (
     <div className="bg-white rounded-2xl py-20 px-26 mt-8 mx-5">

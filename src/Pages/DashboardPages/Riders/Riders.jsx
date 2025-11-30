@@ -17,7 +17,7 @@ const Riders = () => {
   });
   const hanldeRiderStatus = (id, status, email) => {
     Instance.patch(`/riders/${id}`, { status, email }).then((res) => {
-        console.log(res.data.modifiedCount);
+        // console.log(res.data.modifiedCount);
         refetch();
       if (res.data) {
         Swal.fire({
