@@ -6,11 +6,11 @@ import Swal from "sweetalert2";
 
 const UserManagemnet = () => {
   const Instance = useSecureInstance();
+
   const { data: users = [],refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await Instance.get("/users");
-
       return res.data;
     },
   });
