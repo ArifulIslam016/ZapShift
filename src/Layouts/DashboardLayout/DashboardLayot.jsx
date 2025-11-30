@@ -76,14 +76,14 @@ const DashboardLayot = () => {
             </li>
             {/* My Pages */}
             <li>
-              <NavLink to={"/dashboard/my-percels"}>
+              <NavLink title="Your parcels" to={"/dashboard/my-percels"}>
                 <FaBoxOpen />
 
                 <span className="is-drawer-close:hidden"> My Percels</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/dashboard/my-payments"}>
+              <NavLink title="Your payments" to={"/dashboard/my-payments"}>
                 <MdPayment />
 
                 <span className="is-drawer-close:hidden"> My Payments</span>
@@ -92,7 +92,7 @@ const DashboardLayot = () => {
             {userRole.role === "admin" && (
               <>
                 <li>
-                  <NavLink to={"/dashboard/approve-rider"}>
+                  <NavLink title="Mange Rider" to={"/dashboard/approve-rider"}>
                     <RiEBike2Fill />
 
                     <span className="is-drawer-close:hidden">
@@ -101,7 +101,7 @@ const DashboardLayot = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to={"/dashboard/user-manage"}>
+                  <NavLink title="Manage User" to={"/dashboard/user-manage"}>
                     <FaUsers />
 
                     <span className="is-drawer-close:hidden">

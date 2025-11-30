@@ -15,7 +15,27 @@ const UserManagemnet = () => {
     },
   });
 const handleAddAdmin=(user)=>{
-  Instance.patch(`/users/${user._id}`,{role:"admin"}).then(res=>{
+  // Instance.patch(`/users/${user._id}`,{role:"admin"}).then(res=>{
+  //   if(res.data.modifiedCount){
+  //     refetch()
+  //       Swal.fire({
+  //           title: "Deleted!",
+  //           text: `${user.displayName} now an admin`,
+  //           icon: "success"
+  //         });
+  //   }
+  // })
+   Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, Permit"
+}).then((result) => {
+  if (result.isConfirmed) {
+   Instance.patch(`/users/${user._id}`,{role:"admin"}).then(res=>{
     if(res.data.modifiedCount){
       refetch()
         Swal.fire({
@@ -24,19 +44,45 @@ const handleAddAdmin=(user)=>{
             icon: "success"
           });
     }
-  })
+  });
+      }
+     }
+    )
+
+  
 }
 const handleRemoveAdmin=(user)=>{
-  Instance.patch(`/users/${user._id}`,{role:"user"}).then(res=>{
+  // Instance.patch(`/users/${user._id}`,{role:"user"}).then(res=>{
+  //   if(res.data.modifiedCount){
+  //     refetch()
+  //       Swal.fire({
+  //           title: "Deleted!",
+  //           text: "Admin reverted to user",
+  //           icon: "success"
+  //         });
+  //   }
+  // })
+     Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+   Instance.patch(`/users/${user._id}`,{role:"user"}).then(res=>{
     if(res.data.modifiedCount){
       refetch()
         Swal.fire({
             title: "Deleted!",
-            text: "Your pickup request has been deleted.",
+            text: "Admin reverted to user",
             icon: "success"
           });
     }
   })
+}})
 }
   return (
     <div>
