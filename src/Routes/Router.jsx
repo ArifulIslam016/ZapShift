@@ -90,19 +90,24 @@ export const router = createBrowserRouter([
       {
         path: "payment-success",
         Component: Success,
-      },{
-        path:'approve-rider',
-        Component: Riders
-        // element: <AdminRoute>
-        //   <Riders></Riders>
-        // </AdminRoute>
-      },{
-        path:'user-manage',
-        Component:UserManagemnet
-        // element: <AdminRoute>
-        //   <UserManagemnet></UserManagemnet>
-        // </AdminRoute>        
-      }
+      },
+      {
+        path: "approve-rider",
+
+        element: (
+          <AdminRoute>
+            <Riders></Riders>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "user-manage",
+        element: (
+          <AdminRoute>
+            <UserManagemnet></UserManagemnet>
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);
