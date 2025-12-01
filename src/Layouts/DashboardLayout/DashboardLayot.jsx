@@ -1,7 +1,7 @@
 import React from "react";
 import { BiKey } from "react-icons/bi";
 import { FaBoxOpen, FaUsers } from "react-icons/fa";
-import { MdPayment } from "react-icons/md";
+import { MdOutlineElectricBike, MdPayment } from "react-icons/md";
 import { RiEBike2Fill } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router";
 import useUserRoleHook from "../../hooks/UserRoleHook";
@@ -106,6 +106,17 @@ const DashboardLayot = () => {
 
                     <span className="is-drawer-close:hidden">
                       Users Management
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink title="Manage User" to={"/dashboard/assagin-rider"}>
+                  <MdOutlineElectricBike />
+
+
+
+                    <span className="is-drawer-close:hidden">
+                      Assagin Rider
                     </span>
                   </NavLink>
                 </li>

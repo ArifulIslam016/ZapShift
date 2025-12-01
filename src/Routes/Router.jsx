@@ -17,6 +17,7 @@ import MyPayment from "../Pages/DashboardPages/MyPaymnet/MyPayment";
 import Riders from "../Pages/DashboardPages/Riders/Riders";
 import UserManagemnet from "../Pages/DashboardPages/UserManagement/UserManagemnet";
 import AdminRoute from "./AdminRoute";
+import AssaginRider from "../Pages/DashboardPages/AssaginRider/AssaginRider";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +106,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <UserManagemnet></UserManagemnet>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "assagin-rider",
+        element: (
+          <AdminRoute>
+            <AssaginRider></AssaginRider>
           </AdminRoute>
         ),
       },
