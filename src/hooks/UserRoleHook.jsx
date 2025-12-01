@@ -9,7 +9,7 @@ const useUserRoleHook = () => {
     const{data:role='user',isLoading}=useQuery({
         queryKey:['user-role'],
         queryFn:async()=>{
-            const res=await Instance.get(`/users/${user.email}/rolse`)
+            const res=await Instance.get(`/users/${user.email}/role`)
             return(res?.data.role||"user")
         }
     })
