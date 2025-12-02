@@ -77,6 +77,7 @@ const MyParcels = () => {
                 <th>Reciver</th>
                 <th>Total Cost</th>
                 <th>Payment Status</th>
+                <th>Delivery Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -89,6 +90,7 @@ const MyParcels = () => {
                     <td>{percel?.reciverName}</td>
                     <td>{percel?.bearingCost}</td>
                     <td>{percel?.paymentStatus==='paid'?<span className="text-white px-3 py-1 bg-green-600 rounded-2xl">Paid</span>:<button onClick={()=>handlePayment(percel)} className="btn btn-primary rounded-sm text-green-800">Pay</button>}</td>
+                    <td className="text-yellow-400">{percel?.deliveryStatus}</td>
                     <td className="space-x-2">
                       <button className="btn">
                         <MdOutlineEditNote />

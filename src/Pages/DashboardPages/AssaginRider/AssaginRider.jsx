@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useSecureInstance from "../../../hooks/SecureInstance";
 
 const AssaginRider = () => {
   const Instance = useSecureInstance();
   const modalRef=useRef()
+  const [selectecPrcel,setSelectedParcel]=useState(null)
   const { data: pendingParcels = [] } = useQuery({
     queryKey: ["paid-Parcels"],
     queryFn: () =>
@@ -12,7 +13,16 @@ const AssaginRider = () => {
         params: { deliveryStatus: "Pickup in progress" },
       }).then((res) => res.data),
   });
+  const {data:riders=[]}=useQuery({
+      enabled:!!selectecPrcel,
+    queryKey:['riders', selectecPrcel?.senderDistrict,'availabe'],
+    queryFn:async()=> {
+        const res= await Instance.get(`/riders?status=approved&workingStatus=available&district=${selectecPrcel?.senderDistrict}`)
+        return res.data
+    }
+  })
 const handleModal=(parcel)=>{
+    setSelectedParcel(parcel)
     modalRef.current.showModal()
 }
   return (
@@ -59,13 +69,12 @@ const handleModal=(parcel)=>{
       </button> */}
       <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">{riders.length}!</h3>
           <p className="py-4">
             Press ESC key or click the button below to close
           </p>
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
