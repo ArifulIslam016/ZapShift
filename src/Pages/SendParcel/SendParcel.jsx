@@ -228,14 +228,7 @@ const SendParcel = () => {
               placeholder="Sender Address"
             />
 
-            {/* <label className="label text-black">District</label>
-            <input
-              type="text"
-              {...register("SenderDistrict")}
-              className="input w-full"
-              placeholder="Your District"
-            /> */}
-
+        
             {/* Sender Pickup instructions */}
             <label className="label text-black">Picup Instructions</label>
             <textarea
@@ -253,7 +246,7 @@ const SendParcel = () => {
               type="text"
               {...register("reciverName")}
               className="input w-full"
-              placeholder="Sender Name"
+              placeholder="Reciver Name"
             />
             {/* Reciver Email address Secions */}
             <label className="label text-black">Receiver Email Address</label>
