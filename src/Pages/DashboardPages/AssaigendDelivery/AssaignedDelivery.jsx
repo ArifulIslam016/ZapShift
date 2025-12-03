@@ -29,7 +29,7 @@ const AssaignedDelivery = () => {
         deliveryTaskRefetch();
         Swal.fire({
           title: "Update",
-          text: `Delivery Accpepted`,
+          text: `${status.split("_").join(" ")}`,
           icon: "success",
         });
       }
@@ -88,9 +88,9 @@ const AssaignedDelivery = () => {
                           handleAcceptDelivery(deliveryTask, "Picked_up");
                         }}
                         className={`btn btn-primary text-black`}
-                        disabled={deliveryTask.deliveryStatus ==="Rider assainge"?false:true}
+                        disabled={deliveryTask.deliveryStatus ==="Rider_Arriving"?false:true}
                       >
-                        {deliveryTask.deliveryStatus==="Rider assainge"?"Pick up":"Alredy PikedUp"}
+                        {deliveryTask.deliveryStatus==="Rider_Arriving"?"Pick up":"Alredy PikedUp"}
                       </button>
                       <button onClick={() => {
                           handleAcceptDelivery(deliveryTask, "Deliveried");

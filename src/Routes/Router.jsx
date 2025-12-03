@@ -20,6 +20,7 @@ import AdminRoute from "./AdminRoute";
 import AssaginRider from "../Pages/DashboardPages/AssaginRider/AssaginRider";
 import AssaignedDelivery from "../Pages/DashboardPages/AssaigendDelivery/AssaignedDelivery";
 import RiderOnlyRoute from "./RiderOnlyRoute";
+import RiderCompletedDeliveries from "../Pages/DashboardPages/RiderCompletedDelivereis/RiderCompletedDeliveries";
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +101,14 @@ export const router = createBrowserRouter([
         element: (
           <RiderOnlyRoute>
             <AssaignedDelivery></AssaignedDelivery>
+          </RiderOnlyRoute>
+        ),
+      },
+      {
+        path: "completed-delivery",
+        element: (
+          <RiderOnlyRoute>
+            <RiderCompletedDeliveries></RiderCompletedDeliveries>
           </RiderOnlyRoute>
         ),
       },

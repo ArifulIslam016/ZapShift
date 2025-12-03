@@ -7,6 +7,7 @@ import { Link, NavLink, Outlet } from "react-router";
 import useUserRoleHook from "../../hooks/UserRoleHook";
 import { FcSerialTasks } from "react-icons/fc";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { GrCompliance } from "react-icons/gr";
 
 const DashboardLayot = () => {
   const userRole = useUserRoleHook();
@@ -100,6 +101,17 @@ const DashboardLayot = () => {
 
                     <span className="is-drawer-close:hidden">
                     Assaigned Deliveries
+                    </span>
+                  </NavLink>
+                </li>
+             <li>
+                  <NavLink title="Assaigned Delivery" to={"/dashboard/completed-delivery"}>
+                    <GrCompliance />
+
+
+
+                    <span className="is-drawer-close:hidden">
+                   Completd Deliveries
                     </span>
                   </NavLink>
                 </li>
