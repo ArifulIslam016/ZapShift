@@ -18,6 +18,8 @@ import Riders from "../Pages/DashboardPages/Riders/Riders";
 import UserManagemnet from "../Pages/DashboardPages/UserManagement/UserManagemnet";
 import AdminRoute from "./AdminRoute";
 import AssaginRider from "../Pages/DashboardPages/AssaginRider/AssaginRider";
+import AssaignedDelivery from "../Pages/DashboardPages/AssaigendDelivery/AssaignedDelivery";
+import RiderOnlyRoute from "./RiderOnlyRoute";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +94,16 @@ export const router = createBrowserRouter([
         path: "payment-success",
         Component: Success,
       },
+      // rider Only routes
+      {
+        path: "assaigned-delivery",
+        element: (
+          <RiderOnlyRoute>
+            <AssaignedDelivery></AssaignedDelivery>
+          </RiderOnlyRoute>
+        ),
+      },
+      // Admin only routes
       {
         path: "approve-rider",
 

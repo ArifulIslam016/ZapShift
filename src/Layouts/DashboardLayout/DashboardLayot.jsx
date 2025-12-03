@@ -1,10 +1,12 @@
 import React from "react";
 import { BiKey } from "react-icons/bi";
-import { FaBoxOpen, FaUsers } from "react-icons/fa";
+import { FaBoxOpen, FaTasks, FaUsers } from "react-icons/fa";
 import { MdOutlineElectricBike, MdPayment } from "react-icons/md";
 import { RiEBike2Fill } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router";
 import useUserRoleHook from "../../hooks/UserRoleHook";
+import { FcSerialTasks } from "react-icons/fc";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 const DashboardLayot = () => {
   const userRole = useUserRoleHook();
@@ -89,6 +91,21 @@ const DashboardLayot = () => {
                 <span className="is-drawer-close:hidden"> My Payments</span>
               </NavLink>
             </li>
+            {/* Rider only Route */}
+            {userRole.role==='Rider'&&<>
+             <li>
+                  <NavLink title="Assaigned Delivery" to={"/dashboard/assaigned-delivery"}>
+                    <FaTasks />
+
+
+                    <span className="is-drawer-close:hidden">
+                    Assaigned Deliveries
+                    </span>
+                  </NavLink>
+                </li>
+            
+            </>}
+            {/* Admin only Route */}
             {userRole.role === "admin" && (
               <>
                 <li>
