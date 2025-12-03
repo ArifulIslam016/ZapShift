@@ -90,7 +90,7 @@ const MyParcels = () => {
                     <td>{percel?.reciverName}</td>
                     <td>{percel?.bearingCost}</td>
                     <td>{percel?.paymentStatus==='paid'?<span className="text-white px-3 py-1 bg-green-600 rounded-2xl">Paid</span>:<button onClick={()=>handlePayment(percel)} className="btn btn-primary rounded-sm text-green-800">Pay</button>}</td>
-                    <td className="text-yellow-400">{percel?.deliveryStatus}</td>
+                    <td className="text-yellow-400"><Link to={`/parcel/${percel.TracingId}`}>{percel?.deliveryStatus}</Link></td>
                     <td className="space-x-2">
                       <button className="btn">
                         <MdOutlineEditNote />

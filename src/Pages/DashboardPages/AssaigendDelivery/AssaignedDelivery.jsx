@@ -19,7 +19,7 @@ const AssaignedDelivery = () => {
     });
   // console.log(pendingdeliveries)
   const handleAcceptDelivery = (deliveryTask, status) => {
-    const updatedStatus = { deliveryStatus: status ,riderId:deliveryTask.riderId};
+    const updatedStatus = { deliveryStatus: status ,riderId:deliveryTask.riderId,trackingId:deliveryTask.TracingId};
     Instance.patch(
       `parcels/${deliveryTask._id}/deleveryStatus`,
       updatedStatus

@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 const RiderCompletedDeliveries = () => {
   const { user } = useAuthhooks();
   const Instance = useSecureInstance();
-  const { data: Completeddeliveries = [], refetch: deliveryTaskRefetch } =
+  const { data: Completeddeliveries = [],} =
     useQuery({
       queryKey: ["pending-percels", "Rider assainge", user?.email],
       queryFn: async () => {

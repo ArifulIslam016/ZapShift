@@ -21,6 +21,7 @@ import AssaginRider from "../Pages/DashboardPages/AssaginRider/AssaginRider";
 import AssaignedDelivery from "../Pages/DashboardPages/AssaigendDelivery/AssaignedDelivery";
 import RiderOnlyRoute from "./RiderOnlyRoute";
 import RiderCompletedDeliveries from "../Pages/DashboardPages/RiderCompletedDelivereis/RiderCompletedDeliveries";
+import ParcelTracking from "../Pages/Tracking/ParcelTracking";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +51,10 @@ export const router = createBrowserRouter([
           </PrivateProvider>
         ),
         loader: () => fetch("./data/coverage.json"),
-      },
+      },{
+        path:'parcel/:trackingId',
+        Component:ParcelTracking
+      }
     ],
   },
   {

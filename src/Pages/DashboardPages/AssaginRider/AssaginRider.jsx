@@ -30,7 +30,9 @@ const handleAssaingRider=(rider)=>{
     const updateInfo={
         riderEmail:rider.email,
         riderId:rider._id,
-        riderName:rider.name
+        riderName:rider.name,
+        trackingId:selectecPrcel.TracingId
+
     }
     Instance.patch(`/parcel/${selectecPrcel._id}`,updateInfo).then(res=>{
         
