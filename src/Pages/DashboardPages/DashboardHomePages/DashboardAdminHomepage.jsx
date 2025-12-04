@@ -1,6 +1,7 @@
 import React from "react";
 import useSecureInstance from "../../../hooks/SecureInstance";
 import { useQuery } from "@tanstack/react-query";
+import { Legend, Pie, PieChart, Tooltip } from "recharts";
 
 const DashboardAdminHomepage = () => {
   const Instance = useSecureInstance();
@@ -12,6 +13,11 @@ const DashboardAdminHomepage = () => {
         return res.data
     }
   });
+  const chartData=(data)=>{
+    return data.map(i=>{
+        return   { name: i._id, value: i.count }
+    })
+  }
   return (
     <div>
       <h1 className="text-4xl text-neutral">Parcel Actions</h1>
@@ -38,6 +44,25 @@ const DashboardAdminHomepage = () => {
           <div className="stat-desc"></div>
         </div>
        })}
+      </div>
+      <div>
+            <PieChart style={{ width: '100%', maxWidth: '500px', maxHeight: '80vh', aspectRatio: 2 }} responsive>
+      <Pie
+        dataKey="value"
+        startAngle={180}
+        endAngle={0}
+        data={chartData(ParcelsActions)}
+        cx="50%"
+        cy="100%"
+        outerRadius="120%"
+        fill="#8884d8"
+        label
+        isAnimationActive={true}
+      />
+      
+      <Legend></Legend>
+      <Tooltip></Tooltip>
+    </PieChart>
       </div>
     </div>
   );
