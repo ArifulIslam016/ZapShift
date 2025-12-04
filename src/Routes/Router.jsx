@@ -22,6 +22,7 @@ import AssaignedDelivery from "../Pages/DashboardPages/AssaigendDelivery/Assaign
 import RiderOnlyRoute from "./RiderOnlyRoute";
 import RiderCompletedDeliveries from "../Pages/DashboardPages/RiderCompletedDelivereis/RiderCompletedDeliveries";
 import ParcelTracking from "../Pages/Tracking/ParcelTracking";
+import DashboardHomePage from "../Pages/DashboardPages/DashboardHomePages/DashboardHomePage";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       </PrivateProvider>
     ),
     children: [
+      {
+        index:true,
+        Component:DashboardHomePage
+      },
       {
         path: "my-percels",
         Component: MyParcels,

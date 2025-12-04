@@ -8,7 +8,7 @@ import useUserRoleHook from "../../hooks/UserRoleHook";
 import { FcSerialTasks } from "react-icons/fc";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { GrCompliance } from "react-icons/gr";
-
+import logoImg from "../../assets/logo.png";
 const DashboardLayot = () => {
   const userRole = useUserRoleHook();
   return (
@@ -55,8 +55,14 @@ const DashboardLayot = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
+              <Link to={'/'}>
+                {" "}
+                <img src={logoImg} alt="" />
+              </Link>
+            </li>
+            <li>
               <Link
-                to={"/"}
+                to={"/dashboard"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -93,30 +99,34 @@ const DashboardLayot = () => {
               </NavLink>
             </li>
             {/* Rider only Route */}
-            {userRole.role==='Rider'&&<>
-             <li>
-                  <NavLink title="Assaigned Delivery" to={"/dashboard/assaigned-delivery"}>
+            {userRole.role === "Rider" && (
+              <>
+                <li>
+                  <NavLink
+                    title="Assaigned Delivery"
+                    to={"/dashboard/assaigned-delivery"}
+                  >
                     <FaTasks />
 
-
                     <span className="is-drawer-close:hidden">
-                    Assaigned Deliveries
+                      Assaigned Deliveries
                     </span>
                   </NavLink>
                 </li>
-             <li>
-                  <NavLink title="Assaigned Delivery" to={"/dashboard/completed-delivery"}>
+                <li>
+                  <NavLink
+                    title="Assaigned Delivery"
+                    to={"/dashboard/completed-delivery"}
+                  >
                     <GrCompliance />
 
-
-
                     <span className="is-drawer-close:hidden">
-                   Completd Deliveries
+                      Completd Deliveries
                     </span>
                   </NavLink>
                 </li>
-            
-            </>}
+              </>
+            )}
             {/* Admin only Route */}
             {userRole.role === "admin" && (
               <>
@@ -140,9 +150,7 @@ const DashboardLayot = () => {
                 </li>
                 <li>
                   <NavLink title="Manage User" to={"/dashboard/assagin-rider"}>
-                  <MdOutlineElectricBike />
-
-
+                    <MdOutlineElectricBike />
 
                     <span className="is-drawer-close:hidden">
                       Assagin Rider

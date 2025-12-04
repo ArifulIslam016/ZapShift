@@ -20,7 +20,7 @@ const MyParcels = () => {
   });
   //    console.log(data)
   if (isLoading) {
-    return <h1> Loading.........</h1>;
+    return <span className="loading loading-spinner loading-xl"></span>;
   }
   const handleDelete=(id)=>{
     Swal.fire({
