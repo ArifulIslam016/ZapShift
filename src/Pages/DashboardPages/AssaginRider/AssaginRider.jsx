@@ -14,7 +14,7 @@ const AssaginRider = () => {
         params: { deliveryStatus: "Pickup in progress" },
       }).then((res) => res.data),
   });
-  const {data:riders=[]}=useQuery({
+  const {data:riders=[],refetch:riderRefetch}=useQuery({
       enabled:!!selectecPrcel,
     queryKey:['riders', selectecPrcel?.senderDistrict,'availabe'],
     queryFn:async()=> {
@@ -40,6 +40,7 @@ console.log(res.data)
 if(res.data.modifiedCount){
     modalRef.current.close()
 parcelRefetch()
+riderRefetch()
       Swal.fire({
               title: "Update",
               text: `Rider Assaigned`,

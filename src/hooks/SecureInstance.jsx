@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import useAuthhooks from './Authhooks';
 import { useNavigate } from 'react-router';
 const secureInstance=axios.create({
-    baseURL:'http://localhost:3000'
+    baseURL:'https://zap-shift-server-coral-delta.vercel.app'
 })
 const useSecureInstance =() => {
     const navigate=useNavigate()
